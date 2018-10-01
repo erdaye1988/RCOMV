@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <include file="$(find rcomv_ugv)/launch/husky_empty_world.launch"> 
+  </include>
+
+  <include file="$(find rcomv_ugv)/launch/move_base_mapless_demo.launch"> 
+  </include>
+
+	<arg name="path" default="[0, 0, 10]"/>
+  <node pkg="rcomv_ugv" type="circular_path_publisher" name="circular_motion_planner"  output="screen" launch-prefix="xterm -e">
+	<rosparam param="path" subst_value="True">$(arg path)</rosparam>
+  </node>
+
+</launch>
