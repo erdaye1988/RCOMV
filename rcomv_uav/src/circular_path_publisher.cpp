@@ -35,10 +35,11 @@ int main(int argc, char** argv) {
   unsigned int i = 0;
 
   // initialize circular path parameters
-  double cx, cy, cz, radius;
+  double cx, cy, cz, radius, shift_angle;
   std::vector<double> input_stream;
 
   nh_private_.param("path", input_stream, std::vector<double> (4,0));
+  nh_private_.param("shift_angle", shift_angle, 0.0);
   cx = input_stream[0];
   cy = input_stream[1];
   cz = input_stream[2];
@@ -47,7 +48,7 @@ int main(int argc, char** argv) {
   ROS_INFO("The circular path is characterized by [center_xyz, radius]: [%f,%f,%f,%f]",cx,cy,cz,radius);
 
   // Trying to unpause Gazebo for 5 seconds.
-  while (i <= 5 && !unpaused) {
+  while (i <= 15 && !unpaused) {
     ROS_INFO("Wait for 1 second before trying to unpause Gazebo again.");
     std::this_thread::sleep_for(std::chrono::seconds(1));
     unpaused = ros::service::call("/gazebo/unpause_physics", srv);
@@ -81,13 +82,24 @@ int main(int argc, char** argv) {
 
   trajectory_msgs::MultiDOFJointTrajectory trajectory_msg;
   //double radius = 5;
-  double theta = 0;
-  Eigen::Vector3d waypoint_position(cx+radius, cy, cz);
+  double theta = 0 + shift_angle;
+  Eigen::Vector3d waypoint_position(cx + radius * cos(theta), cy + radius * sin(theta), cz);
   double desired_yaw = 0 * DEG_2_RAD;
+
+
 
   // update the waypoint at 5HZ
   ros::Rate rate(5);
   trajectory_msg.header.stamp = ros::Time::now();
+
+  // wait for 30 sec, until it reaches inital condition
+  mav_msgs::msgMultiDofJointTrajectoryFromPositionYaw(
+    waypoint_position, desired_yaw, &trajectory_msg);
+  ROS_INFO("Publishing waypoint : [%f, %f, %f]", waypoint_position.x(),
+          waypoint_position.y(), waypoint_position.z());
+  trajectory_pub.publish(trajectory_msg);
+  ros::Duration(10.0).sleep();
+
   while (sim_running && ros::ok()) {
     mav_msgs::msgMultiDofJointTrajectoryFromPositionYaw(
       waypoint_position, desired_yaw, &trajectory_msg);

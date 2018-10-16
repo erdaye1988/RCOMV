@@ -2,17 +2,17 @@
 
 <launch>
 
-  <arg name="world_name" default="worlds/empty.world"/>
+  <arg name="world_name" default="terrain"/>
 
   <arg name="laser_enabled" default="true"/>
   <arg name="kinect_enabled" default="false"/>
 
   <arg name="init_x" default="0"/>
-  <arg name="init_y" default="0"/>
+  <arg name="init_y" default="-50"/>
 
   <!-- launch world file -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(arg world_name)"/> <!-- world_name is wrt GAZEBO_RESOURCE_PATH environment variable -->
+    <arg name="world_name" value="$(find rcomv_uav)/worlds/$(arg world_name).world"/> <!-- world_name is wrt GAZEBO_RESOURCE_PATH environment variable -->
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="true"/>
@@ -35,7 +35,7 @@
   </include>
 
   <!-- path publisher -->
-  <arg name="path" default="[0, 0, 5]"/>
+  <arg name="path" default="[0, -50, 5]"/>
   <node pkg="rcomv_ugv" type="circular_path_publisher" name="circular_motion_planner"  output="screen" launch-prefix="xterm -e">
 	<rosparam param="path" subst_value="True">$(arg path)</rosparam>
 	<param name="number_segements" value="6"/>

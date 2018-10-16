@@ -31,7 +31,9 @@
    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rcomv_ugv)/rviz/robot.rviz" output="screen"/>
 
   <!-- Run square path publisher-->
-  <node name="square_path_publisher" pkg="rcomv_ugv" type="move_base_square">
+  <node name="square_path_publisher" pkg="rcomv_ugv" type="move_base_square"
+  	launch-prefix="xterm -e"
+  >
 
   </node>
 

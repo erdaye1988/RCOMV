@@ -1,5 +1,11 @@
 <sdf version='1.6'>
   <world name='default'>
+   
+    <!-- Only one ROS interface plugin is required per world, as any other plugin can connect a Gazebo
+         topic to a ROS topic (or vise versa). -->
+    <plugin name="ros_interface_plugin" filename="librotors_gazebo_ros_interface_plugin.so"/>
+    
+
     <light name='sun' type='directional'>
       <cast_shadows>1</cast_shadows>
       <pose frame=''>0 0 10 0 -0 0</pose>
@@ -13,6 +19,8 @@
       </attenuation>
       <direction>-0.5 0.1 -0.9</direction>
     </light>
+    
+
     <gravity>0 0 -9.8</gravity>
     <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
     <atmosphere type='adiabatic'/>
@@ -240,10 +248,10 @@
       <pose frame=''>-62.036 94.6102 0 0 -0 0</pose>
     </model>
     <state world_name='default'>
-      <sim_time>1683 567000000</sim_time>
-      <real_time>59 508387931</real_time>
-      <wall_time>1538768045 232518953</wall_time>
-      <iterations>58106</iterations>
+      <sim_time>1625 461000000</sim_time>
+      <real_time>1165 663142223</real_time>
+      <wall_time>1536883833 891288996</wall_time>
+      <iterations>1153739</iterations>
       <model name='Gas Station'>
         <pose frame=''>1 -25 0 0 0 -1.57</pose>
         <scale>1 1 1</scale>
@@ -495,10 +503,10 @@
         </link>
       </model>
       <model name='suv'>
-        <pose frame=''>21.2284 -36.3861 0 0 -0 0</pose>
+        <pose frame=''>-9.30435 -38.3321 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>21.2284 -36.3861 0 0 -0 0</pose>
+          <pose frame=''>-9.30435 -38.3321 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -510,7 +518,7 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose frame=''>-44.5714 -128.446 94.4159 0 0.704097 1.17905</pose>
+        <pose frame=''>-69.0625 326.4 229.023 -0.00378 0.652097 -1.45695</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>

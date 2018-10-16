@@ -1,5 +1,10 @@
 <sdf version='1.6'>
   <world name='default'>
+    
+  <!-- Only one ROS interface plugin is required per world, as any other plugin can connect a Gazebo
+         topic to a ROS topic (or vise versa). -->
+    <plugin name="ros_interface_plugin" filename="librotors_gazebo_ros_interface_plugin.so"/>
+
     <light name='sun' type='directional'>
       <cast_shadows>1</cast_shadows>
       <pose frame=''>0 0 10 0 -0 0</pose>
@@ -424,10 +429,10 @@
       <pose frame=''>-14.531 5.1778 0 0 -0 0</pose>
     </model>
     <state world_name='default'>
-      <sim_time>341 763000000</sim_time>
-      <real_time>41 939103932</real_time>
-      <wall_time>1538767967 858469537</wall_time>
-      <iterations>41733</iterations>
+      <sim_time>300 30000000</sim_time>
+      <real_time>301 593857850</real_time>
+      <wall_time>1536603342 851557107</wall_time>
+      <iterations>300030</iterations>
       <model name='Gas Station'>
         <pose frame=''>-14.531 5.1778 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -449,35 +454,35 @@
         </link>
       </model>
       <model name='pioneer2dx'>
-        <pose frame=''>1.16906 -4.69396 -1e-06 2e-05 3e-06 -0.030251</pose>
+        <pose frame=''>3.12396 -2.41434 -1e-06 1.9e-05 4e-06 -0.011732</pose>
         <scale>1 1 1</scale>
         <link name='chassis'>
-          <pose frame=''>1.16906 -4.69397 0.159999 2e-05 3e-06 -0.030251</pose>
-          <velocity>5.5e-05 -8.5e-05 0.000237 0.000987 -0.001162 -0.000362</velocity>
-          <acceleration>-0.012522 -0.090286 0.474101 -1.16678 -0.817363 3.12742</acceleration>
-          <wrench>-0.062612 -0.451432 2.37051 0 -0 0</wrench>
+          <pose frame=''>3.12396 -2.41434 0.159999 1.9e-05 4e-06 -0.011732</pose>
+          <velocity>6.8e-05 7e-06 -0.000237 -0.001009 0.001144 -0.000347</velocity>
+          <acceleration>0.010848 0.090503 -0.474101 1.12408 0.854331 -3.12742</acceleration>
+          <wrench>0.054241 0.452515 -2.37051 0 -0 0</wrench>
         </link>
         <link name='left_wheel'>
-          <pose frame=''>1.27416 -4.52707 0.110003 1.1508 1.57051 2.69125</pose>
-          <velocity>0.000131 -0.000113 0.00063 0.001036 0.001101 -0.000362</velocity>
-          <acceleration>0.063465 -0.032732 1.1537 2.02324 -0.06123 -0.014506</acceleration>
-          <wrench>0.031732 -0.016366 0.57685 0 -0 0</wrench>
+          <pose frame=''>3.22595 -2.24552 0.110002 0.021505 1.57068 1.58047</pose>
+          <velocity>0.000111 -3.9e-05 -0.00063 -0.001015 -0.00112 -0.000347</velocity>
+          <acceleration>-0.06406 0.03155 -1.1537 -2.02403 0.023758 0.014506</acceleration>
+          <wrench>-0.03203 0.015775 -0.57685 0 -0 0</wrench>
         </link>
         <link name='right_wheel'>
-          <pose frame=''>1.26387 -4.86691 0.110002 1.15364 1.57051 2.69409</pose>
-          <velocity>0.000111 -0.000258 -0.001428 0.001061 0.0011 -0.000361</velocity>
-          <acceleration>0.161749 -0.181323 -1.2515 2.04864 -0.061994 -0.014</acceleration>
-          <wrench>0.016175 -0.018132 -0.12515 0 -0 0</wrench>
+          <pose frame=''>3.22196 -2.5855 0.110004 0.047967 1.57068 1.60694</pose>
+          <velocity>-0.000113 0.00011 0.001428 -0.001041 -0.001119 -0.000348</velocity>
+          <acceleration>-0.16508 0.178297 1.2515 -2.04944 0.024194 0.014</acceleration>
+          <wrench>-0.016508 0.01783 0.12515 0 -0 0</wrench>
         </link>
       </model>
       <model name='unit_box_0'>
-        <pose frame=''>-1.35743 -2.59378 0.5 -1.5708 -0 -2.54491</pose>
+        <pose frame=''>-1.35743 -2.59378 0.499999 -1.57079 5e-06 -2.54491</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>-1.35743 -2.59378 0.5 -1.5708 -0 -2.54491</pose>
+          <pose frame=''>-1.35743 -2.59378 0.499999 -1.57079 5e-06 -2.54491</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>6.07919 4.12688 7.34641 -1.97086 -0.408191 0.00032</acceleration>
-          <wrench>6.07919 4.12688 7.34641 0 -0 0</wrench>
+          <acceleration>-0.685483 -3.58867 -5.49428 0.894129 -1.37045 0.000427</acceleration>
+          <wrench>-0.685483 -3.58867 -5.49428 0 -0 0</wrench>
         </link>
       </model>
       <light name='sun'>
@@ -486,7 +491,7 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose frame=''>10.1437 -19.0215 8.21493 0 0.468146 2.28172</pose>
+        <pose frame=''>8.37375 -21.3335 7.03432 0 0.468146 2.28172</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>

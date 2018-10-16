@@ -39,8 +39,8 @@ int main(int argc, char** argv){
   move_base_msgs::MoveBaseGoal goal;
 
 
-  //we'll send a goal to the robot to move 1 meter forward
-  goal.target_pose.header.frame_id = "base_link";
+  //we'll send a goal to the robot to move to a desired location
+  goal.target_pose.header.frame_id = "odom";
   goal.target_pose.header.stamp = ros::Time::now();
 
   goal.target_pose.pose.position.x = position[0];
@@ -48,10 +48,36 @@ int main(int argc, char** argv){
   goal.target_pose.pose.orientation.w = qt[3];
   goal.target_pose.pose.orientation.z = qt[2];
 
+
   ROS_INFO("Sending goal");
   ac.sendGoal(goal);
-
+  actionlib::SimpleClientGoalState state = ac.getState();
+  ROS_INFO("Action [x=%f,y=%f]: %s", goal.target_pose.pose.position.x, goal.target_pose.pose.position.y, state.toString().c_str());
   ac.waitForResult();
+  ROS_INFO("goal finished");
+
+  // print client state after finishing
+  state = ac.getState();
+  ROS_INFO("Action: %s",state.toString().c_str());
+
+  // send a second goal back to origin
+  goal.target_pose.header.frame_id = "odom";
+  goal.target_pose.header.stamp = ros::Time::now();
+  goal.target_pose.pose.position.x = 0;
+  goal.target_pose.pose.position.y = 0;
+  goal.target_pose.pose.orientation.w = qt[3];
+  goal.target_pose.pose.orientation.z = qt[2];
+
+  ROS_INFO("Sending second goal");
+  ac.sendGoal(goal);
+  state = ac.getState();
+  ROS_INFO("Action [x=%f,y=%f]: %s", goal.target_pose.pose.position.x, goal.target_pose.pose.position.y, state.toString().c_str());
+  ac.waitForResult();
+  ROS_INFO("second goal finished");
+
+  //
+  state = ac.getState();
+  ROS_INFO("Action: %s",state.toString().c_str());
 
   if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
     ROS_INFO("Hooray, the base moved 1 meter forward");

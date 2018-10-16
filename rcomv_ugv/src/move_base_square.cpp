@@ -38,6 +38,7 @@ void init_markers(visualization_msgs::Marker *marker)
   marker->header.stamp = ros::Time::now();
 
 }
+
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "nav_move_base");
@@ -56,7 +57,7 @@ int main(int argc, char** argv)
   ROS_INFO("move_base_square.cpp start...");
 
   //How big is the square we want the robot to navigate?
-  double square_size = 5.0;
+  double square_size = 10.0;
 
   //Create a list to hold the target quaternions (orientations)
   geometry_msgs::Quaternion quaternions[4];
@@ -132,8 +133,8 @@ int main(int argc, char** argv)
      //Intialize the waypoint goal
      move_base_msgs::MoveBaseGoal goal;
 
-     //Use the map frame to define goal poses
-     goal.target_pose.header.frame_id = "base_link";
+     //Use the base_link frame to define goal poses
+     goal.target_pose.header.frame_id = "odom";
 
      //Set the time stamp to "now"
      goal.target_pose.header.stamp = ros::Time::now();
@@ -144,6 +145,8 @@ int main(int argc, char** argv)
      //Start the robot moving toward the goal
      //Send the goal pose to the MoveBaseAction server
      ac.sendGoal(goal);
+     ROS_INFO("Sending the goal: [%f, %f]", goal.target_pose.pose.position.x, goal.target_pose.pose.position.y);
+     ROS_INFO("with quaternion: [%f, %f]", goal.target_pose.pose.orientation.z, goal.target_pose.pose.orientation.w);
 
     //Allow 1 minute to get there
     bool finished_within_time = ac.waitForResult(ros::Duration(180));
