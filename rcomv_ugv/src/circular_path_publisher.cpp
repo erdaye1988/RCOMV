@@ -23,8 +23,8 @@ void generatedPath(std::vector<move_base_msgs::MoveBaseGoal> &goal, std::vector<
     goal[i].target_pose.pose.position.x = cx + radius * cos(theta) - init_x;
     goal[i].target_pose.pose.position.y = cy + radius * sin(theta) - init_y;
     goal[i].target_pose.pose.orientation =
-    tf::createQuaternionMsgFromRollPitchYaw(0, 0, theta);
-    // update the angle
+    // update the orientation angle
+    tf::createQuaternionMsgFromRollPitchYaw(0, 0, (theta+M_PI/2));
     theta += (M_PI*2) / n;
   }
 }

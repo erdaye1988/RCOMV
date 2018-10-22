@@ -8,8 +8,8 @@
   <include file="$(find rcomv_ugv)/launch/move_base_mapless_demo.launch"> 
   </include>
 
-  <arg name="position" default="[6, 6, 0]"/>
-  <arg name="euler" default="[0, 0, 0]"/>  
+  <arg name="position" default="[1, 0, 0]"/>
+  <arg name="euler" default="[0, 0, -0.2356]"/>  
 
   <node pkg="rcomv_ugv" type="simple_navigation_goals" name="line_motion_planner"  output="screen" launch-prefix="xterm -e">
 	<rosparam param="position" subst_value="True">$(arg position)</rosparam>

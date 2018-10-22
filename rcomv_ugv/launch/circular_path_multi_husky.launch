@@ -24,13 +24,15 @@
     <arg name="debug" value="false"/>
   </include>
 
+  
+
   <!-- launch robot 1 -->
   <arg name="init_x" default="10"/>
   <arg name="init_y" default="0"/>
   
   <include file="$(find rcomv_ugv)/launch/spawn_husky.launch">
     <arg name="robot_namespace" value="$(arg robot_1)"/>
-    <arg name="multimaster" value="true"/>    
+    <arg name="multimaster" value="false"/>    
   
     <arg name="laser_enabled" value="$(arg laser_enabled)"/>
     <arg name="kinect_enabled" value="$(arg kinect_enabled)"/>
