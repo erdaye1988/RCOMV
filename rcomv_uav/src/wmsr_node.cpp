@@ -17,16 +17,29 @@ WMSRNode::WMSRNode()
     //nh_private_.param<std::vector<std::vector<int>>>("L", L,
     //          std::vector<std::vector<int>>(15, std::vector<int>(15,0)) );
 
-    nh_private_.param<int>("x", x0, 0);
-    nh_private_.param<int>("y", y0, 0);
-    nh_private_.param<int>("z", z0, 0);
+    nh_private_.param<double>("x", x0, 0);
+    nh_private_.param<double>("y", y0, 0);
+    nh_private_.param<double>("z", z0, 0);
 
+    nh_private_.param<int>("demo", demo, 2);
+
+    nh_private_.param<double>("cx", cx, 6);
+    nh_private_.param<double>("cy", cy, 6);
+    nh_private_.param<double>("cz", cz, 10);
 
     // Initialize msgs
     own_states.header.stamp = ros::Time::now();
-    own_states.point.x = x0;
-    own_states.point.y = y0;
-    own_states.point.z = z0;
+    if (demo == 3 && role == 3) {
+      own_states.point.x = cx;
+      own_states.point.y = cy;
+      own_states.point.z = cz;
+    }
+    else {
+      own_states.point.x = x0;
+      own_states.point.y = y0;
+      own_states.point.z = z0;
+    }
+
     mali_states.header.stamp = ros::Time::now();
     mali_states.point.x = x0;
     mali_states.point.y = y0;
@@ -127,12 +140,25 @@ void WMSRNode::out_pubCallback(const ros::TimerEvent& event)
   trajectory_msgs::MultiDOFJointTrajectory trajectory_msg;
 
   double x, y, z;
-  //x = own_formation_states.point.x;
-  //y = own_formation_states.point.y;
-  // only consider 1d motion
-  x = x0;
-  y = y0;
-  z = own_formation_states.point.z;
+  // 1D motion in y direction
+  if (demo == 1) {
+    x = x0;
+    y = own_formation_states.point.y;
+    z = z0;
+  }
+  // 1D motion in z direction
+  else if (demo == 2) {
+    x = x0;
+    y = y0;
+    z = own_formation_states.point.z;
+  }
+  // 3D motion
+  else {
+    x = own_formation_states.point.x;
+    y = own_formation_states.point.y;
+    z = own_formation_states.point.z;
+  }
+
   const float DEG_2_RAD = M_PI / 180.0;
 
   Eigen::Vector3d waypoint_position(x, y, z);
@@ -195,9 +221,26 @@ ref_msgs WMSRNode::WMSRAlgorithm(const std::vector<ref_msgs> &list)
 // Helper Function: Create formation
 void WMSRNode::Formation()
 {
-  own_formation_states.header.stamp = ros::Time::now();
+  // 1D motion
+  if (demo == 1 || demo == 2) {
+    own_formation_states.point = own_states.point;
+    own_formation_states.header.stamp = ros::Time::now();
+  }
+  // 3D motion: star shape formation
+  else {
+    const float DEG_2_RAD = M_PI / 180.0;
+    double d_theta = 360 / 5 * DEG_2_RAD;
+    double d_radius = 1;
+    int group_size = n / 5;
 
-  own_formation_states.point = own_states.point;
+    double theta = (idx-1) / group_size * d_theta;
+    double radius = (idx-1) % group_size * d_radius + 2;
+
+    own_formation_states.point.x = own_states.point.x + radius * cos(theta);
+    own_formation_states.point.y = own_states.point.y + radius * sin(theta);
+    own_formation_states.point.z = own_states.point.z;
+    own_formation_states.header.stamp = ros::Time::now();
+  }
 }
 
 // Helper Function: remove outlier entries

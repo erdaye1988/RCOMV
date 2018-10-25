@@ -8,25 +8,27 @@
 
 	<arg name="x" default = "0" />
 	<arg name="y" default = "0" />
-	<arg name="z" default = "0" />
+	<arg name="z" default = "0.1" />
 	<arg name="n" default="15" />
 	<arg name="k" default="7" />
 	<arg name="idx" default="1" />	
 	<arg name="role" default="2" />
 	<arg name="F" default="0" />
+	<arg name="demo" default="2" />
 
 
 <group ns="$(arg name_space)">
 	<!-- uav robor node -->
 	<include file="$(find rotors_gazebo)/launch/spawn_mav.launch">
 		<arg name="namespace" value="$(arg name_space)" />  <!-- namespace -->
-      		<arg name="mav_name" value="firefly" />
+      		<arg name="mav_name" value="$(arg mav_name)" />
       		<arg name="model" value="$(find rotors_description)/urdf/mav_generic_odometry_sensor.gazebo" />
       		<arg name="enable_logging" value="$(arg enable_logging)" />
       		<arg name="enable_ground_truth" value="$(arg enable_ground_truth)" />
       		<arg name="log_file" value="firefly"/>
       		<arg name="x" value="$(arg x)"/>
-      		<arg name="y" value="$(arg y)"/>	
+      		<arg name="y" value="$(arg y)"/>
+		<arg name="z" value="$(arg z)"/>	
     	</include>
  
 	<!-- controller node -->
@@ -50,6 +52,8 @@
 		<param name="x" value="$(arg x)" />
 		<param name="y" value="$(arg y)" />
 		<param name="z" value="$(arg z)" />
+
+		<param name="demo" value="$(arg demo)" />
 	</node>
 </group>  
 

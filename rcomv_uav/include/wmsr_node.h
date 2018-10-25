@@ -70,7 +70,9 @@ private:
   int role;   // the role of hte current agents: Malicious=1, Normal=2, Leader=3
   std::vector<std::vector<int>> L; // comunication graph
   int F;    // allowed maximum number of adversaries
-  int x0, y0, z0; // inital pose
+  double x0, y0, z0; // inital pose
+  int demo; // 1: x dir 1D motion,  2: z dir 1D motion, 3: 3D motion
+  double cx, cy, cz;
 
   // Some Helper functions
   ref_msgs WMSRAlgorithm(const std::vector<ref_msgs> &list);

@@ -57,6 +57,8 @@
 		<arg name="n" value="$(arg n)" />
 		<arg name="k" value="$(arg k)" />
 		<arg name="F" value="$(arg F)" />
+
+		<arg name="mav_name" value="firefly"/>
 		
 		<arg name="name_space" value="uav3"/>
 		<arg name="idx" value="3" />
@@ -72,6 +74,8 @@
 		<arg name="n" value="$(arg n)" />
 		<arg name="k" value="$(arg k)" />
 		<arg name="F" value="$(arg F)" />
+
+		<arg name="mav_name" value="firefly"/>
 		
 		<arg name="name_space" value="uav4"/>
 		<arg name="idx" value="4" />
@@ -87,6 +91,8 @@
 		<arg name="n" value="$(arg n)" />
 		<arg name="k" value="$(arg k)" />
 		<arg name="F" value="$(arg F)" />
+
+		<arg name="mav_name" value="firefly"/>
 		
 		<arg name="name_space" value="uav5"/>
 		<arg name="idx" value="5" />
@@ -147,6 +153,8 @@
 		<arg name="n" value="$(arg n)" />
 		<arg name="k" value="$(arg k)" />
 		<arg name="F" value="$(arg F)" />
+		
+		<arg name="mav_name" value="firefly"/>
 		
 		<arg name="name_space" value="uav9"/>
 		<arg name="idx" value="9" />
