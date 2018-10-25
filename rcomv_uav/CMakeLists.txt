@@ -120,7 +120,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -142,6 +142,7 @@ add_executable(waypoint_publisher src/waypoint_publisher.cpp)
 add_executable(waypoint_publisher_file src/waypoint_publisher_file.cpp)
 add_executable(hovering_example src/hovering_example.cpp)
 add_executable(circular_path_publisher src/circular_path_publisher.cpp)
+add_executable(wmsr_node src/wmsr_node.cpp include/wmsr_node.h)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -156,6 +157,7 @@ add_dependencies(waypoint_publisher ${catkin_EXPORTED_TARGETS})
 add_dependencies(waypoint_publisher_file ${catkin_EXPORTED_TARGETS})
 add_dependencies(hovering_example ${catkin_EXPORTED_TARGETS})
 add_dependencies(circular_path_publisher ${catkin_EXPORTED_TARGETS})
+add_dependencies(wmsr_node ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
@@ -165,6 +167,7 @@ target_link_libraries(waypoint_publisher ${catkin_LIBRARIES})
 target_link_libraries(waypoint_publisher_file ${catkin_LIBRARIES})
 target_link_libraries(hovering_example ${catkin_LIBRARIES})
 target_link_libraries(circular_path_publisher ${catkin_LIBRARIES})
+target_link_libraries(wmsr_node ${catkin_LIBRARIES})
 
 #############
 ## Install ##
